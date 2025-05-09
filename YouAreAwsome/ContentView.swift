@@ -18,9 +18,9 @@ struct ContentView: View {
     @State private var soundIsOn = true
     let numberOfImages = 10  // images labled image0 - image9
     let numberOfSounds = 6 // sounds labled sound0 - sound5
-
+    
     var body: some View {
-
+        
         VStack {
             Text(message)
                 .font(.largeTitle)
@@ -48,8 +48,8 @@ struct ContentView: View {
                     .labelsHidden()
                     .onChange(of: soundIsOn) {
                         if audioPlayer != nil && audioPlayer.isPlaying{
-                                audioPlayer.stop()
-                            }
+                            audioPlayer.stop()
+                        }
                     }
                 
                 Spacer()
@@ -81,9 +81,10 @@ struct ContentView: View {
                 .buttonStyle(.borderedProminent)
                 .font(.title2)
             }
-            }
+            .tint(.accentColor)
+        }
         .padding()
-
+        
     }
     
     func nonRepeatingRandom(lastNumber: Int, upperBound: Int) -> Int {
@@ -96,8 +97,8 @@ struct ContentView: View {
     
     func playSounds(soundName: String) {
         if audioPlayer != nil && audioPlayer.isPlaying{
-                audioPlayer.stop()
-            }
+            audioPlayer.stop()
+        }
         guard let soundFile = NSDataAsset(name: soundName) else {
             print("😡 Could not read file name \(soundName)")
             return
@@ -111,6 +112,11 @@ struct ContentView: View {
     }
 }
 
-#Preview {
+#Preview("Light Mode") {
     ContentView()
+        .preferredColorScheme(.light)
+}
+#Preview("Dark Mode") {
+    ContentView()
+        .preferredColorScheme(.dark)
 }
